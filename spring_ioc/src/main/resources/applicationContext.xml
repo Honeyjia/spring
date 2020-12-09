@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--    配置UserDaoImpl文件-->
+<!--    无参构造方法-->
+<!--        <bean id="userDao" class="com.itcast.dao.impl.UserDaoImpl" init-method="init" destroy-method="destory"></bean>-->
+
+<!-- set方法
+    <bean id="service" class="com.itcast.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"></property>  name:SetUserDao->userDao    ref:传入的对象id值
+    </bean>
+-->
+
+<!--    p命令空间注入
+    xmlns:p="http://www.springframework.org/schema/p"
+    <bean id="service" class="com.itcast.service.impl.UserServiceImpl" p:userDao-ref="userDao"></bean>
+-->
+
+<!--构造方法 arg-argement 参数，name是构造方法中传入的参数  ref是引用spring容器中的bean的id值
+    <bean id="service" class="com.itcast.service.impl.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    </bean>
+-->
+
+    <!--    scope:指对象的作用范围，取值如下:
+    1.singleton  默认值，单例的
+    2.prototype  多例的-->
+
+<!--    静态方法  直接调用-->
+<!--    <bean id="userDao" class="com.itcast.factory.StaticFactory" factory-method="getUserDao"></bean>-->
+
+<!--    非静态方法-->
+<!--    <bean id="factory" class="com.itcast.factory.DynamicFactory"></bean>-->
+<!--    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>-->
+
+<!--普通方法注入
+    <bean id="userDao" class="com.itcast.dao.impl.UserDaoImpl">
+        <property name="username" value="zhangsan"></property>
+        <property name="age" value="18"></property>
+    </bean>
+    -->
+<!--    集合方式注入-->
+    <bean id="userDao" class="com.itcast.dao.impl.UserDaoImpl">
+        <property name="strList">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="u1" value-ref="user"></entry>
+                <entry key="u2" value-ref="user"></entry>
+            </map>
+        </property>
+        <property name="proprities">
+            <props>
+                <prop key="p1">ppp1</prop>
+                <prop key="p2">pp2</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="user" class="com.itcast.domain.User">
+        <property name="username" value="zhangsan"/>
+        <property name="addr" value="北京"/>
+    </bean>
+</beans>
